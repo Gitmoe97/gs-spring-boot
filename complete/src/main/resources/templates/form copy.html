@@ -1,0 +1,104 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="suggestions, Brow Lashes by Rima suggestion, feedback">
+    <title>Form | Brow Lashes by Rima</title>
+	<link href="css/browlashes.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+  <link rel="stylesheet" href="css/demo.min.css">
+  <link rel="stylesheet" href="css/vanilla-calendar.min.css">
+  <link rel="stylesheet" href="css/themes/dark.min.css">
+  <link rel="stylesheet" href="css/themes/light.min.css">
+  <script src="./vanilla-calendar.min.js"></script>
+  </head>
+  <body>
+  
+  <form id="suggestion" action="#" method="post" th:action="@{/thanks}">
+  <input name="Email" type="hidden" value="mohammad.abuhantash@my.uu.edu">   
+  <input name="Website" type="hidden" value="Brow Lashes by Rima">
+  <input type="hidden" id="selectedDate" name="selectedDate" />
+  <span><th:text="${message}"/></span>
+  
+  <div class="row mb-3">
+    <label for="UserName" class="col-sm-2 col-form-label">Your Name*</label>
+    <div class="col-sm-10">
+      <input name="UserName" type="text" class="form-control" id="UserName" maxlength="50" required>
+    </div>
+  </div>
+  </div>
+  
+   <div class="row mb-3">
+    <label for="UserEmail" class="col-sm-2 col-form-label">Your Email*</label>
+    <div class="col-sm-10">
+      <input name="UserEmail" type="email" class="form-control" id="UserEmail" maxlength="50" required> 
+    </div>
+  </div>
+  <div>
+  <label for="service">Service:</label>
+  <select name="service" id="service">
+    <option th:each="service : ${services}"
+            th:value="${service.id}"
+            th:text="${service.name}">Service</option>
+  
+  </select>
+ </div>
+ <div>
+   <label for="UserComments" id="commbox" class="col-sm-2 col-form-label">Additional information about your appointment?</label>
+    <textarea name="UserComments" id="commbox" maxlength="200" required></textarea>
+  </div>
+  <div>
+   <label for="UserComments" id="commbox" class="col-sm-2 col-form-label">Select date/time:</label>
+  </div>
+    <div name="vanilla-calendar" id="vanilla-calendar" class="shadow-[0_5px_40px_5px_rgb(65_65_65_/_0.1)] dark:shadow-[inset_0_0_0_1px_rgb(255_255_255_/_0.1)]"></div>
+		<script>
+			document.addEventListener('DOMContentLoaded', () => {
+				const calendar = new VanillaCalendar('#vanilla-calendar', {
+					input: true,
+          actions: {
+            changeToInput(e, HTMLInputElement, dates, time, hours, minutes, keeping) {
+              if (dates[0]){
+                HTMLInputElement.value = dates[0] + " " + time;
+              } else {
+                HTMLInputElement.value = '';
+              }
+            },
+          },
+          settings: {
+						range: {
+							disablePast: true,
+						},
+						selection: {
+							day: 'single',
+              stepMinutes: 30,
+							time: true,
+              controlTime: 'range',
+						},
+            selected: {
+              time: '11:00 AM',
+            },
+						visibility: {
+							weekNumbers: false,
+							daysOutside: false,
+              today: true,
+						},
+					},
+					actions: {
+						clickDay(event, dates) {
+							console.log(event, dates);
+						},
+					},
+				});
+				
+        calendar.init();
+			});
+		</script>
+  
+ 
+ <div id="buttons"> 
+ <input type="submit" value="Submit my appointment"/> </div>
+</form>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+  </body>
+</html>
